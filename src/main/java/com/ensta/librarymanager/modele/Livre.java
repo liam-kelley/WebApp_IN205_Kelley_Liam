@@ -2,12 +2,12 @@ package com.ensta.librarymanager.modele;
 
 import java.util.List;
 
+import com.ensta.librarymanager.dao.daoInterfaces.ILivreDao;
+import com.ensta.librarymanager.service.ILivreService;
 //import com.ensta.librarymanager.dao.DaoException;
-import com.ensta.librarymanager.dao.LivreDao;
-import com.ensta.librarymanager.service.LivreService;
 //import com.ensta.librarymanager.service.ServiceException;
 
-public class Livre {
+public class Livre /*implements LivreDao, LivreService*/{
     /*
 	 * ** Attributs
 	 */

@@ -5,7 +5,7 @@ import java.util.List;
 import com.ensta.librarymanager.exception.ServiceException;
 import com.ensta.librarymanager.modele.Livre;
 
-public interface LivreService {
+public interface ILivreService {
 
 	public List<Livre> getList() throws ServiceException;
 	public List<Livre> getListDispo() throws ServiceException;

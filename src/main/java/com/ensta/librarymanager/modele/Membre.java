@@ -2,18 +2,12 @@ package com.ensta.librarymanager.modele;
 
 import java.util.List;
 
-
-import com.ensta.librarymanager.dao.MembreDao;
-import com.ensta.librarymanager.service.MembreService;
+import com.ensta.librarymanager.dao.daoInterfaces.IMembreDao;
+import com.ensta.librarymanager.service.IMembreService;
 //import com.ensta.librarymanager.dao.DaoException;
 //import com.ensta.librarymanager.service.ServiceException;
 
 public class Membre /*implements MembreDao, MembreService*/{
-    enum Abonnement {
-        BASIC,
-        PREMIUM,
-        VIP
-    }
 
     /*
 	 * ** Attributs

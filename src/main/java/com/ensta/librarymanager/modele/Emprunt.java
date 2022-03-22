@@ -3,7 +3,7 @@ package com.ensta.librarymanager.modele;
 import java.sql.Date; //plutot date ou local Date??
 import java.time.LocalDate;
 
-import com.ensta.librarymanager.dao.IEmpruntDao;
+import com.ensta.librarymanager.dao.daoInterfaces.IEmpruntDao;
 import com.ensta.librarymanager.service.IEmpruntService;
 
 //import com.ensta.librarymanager.dao.DaoException;

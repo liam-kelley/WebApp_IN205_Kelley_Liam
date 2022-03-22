@@ -1,11 +1,11 @@
-package com.ensta.librarymanager.dao;
+package com.ensta.librarymanager.dao.daoInterfaces;
 
 import java.util.List;
 
 import com.ensta.librarymanager.exception.DaoException;
 import com.ensta.librarymanager.modele.Livre;
 
-public interface LivreDao {
+public interface ILivreDao {
 	public List<Livre> getList() throws DaoException;
 	public Livre getById(int id) throws DaoException;
 	public int create(String titre, String auteur, String isbn) throws DaoException;
