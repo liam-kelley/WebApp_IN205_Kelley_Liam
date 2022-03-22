@@ -5,6 +5,8 @@ import java.sql.SQLException;
 
 import org.h2.jdbcx.JdbcDataSource;
 
+//MAL ECRIT - A REECRIRE
+
 public class ConnectionManager {
 	private static final String DB_CONNECTION = "jdbc:h2:~/libraryManagerDatabase";
 	private static final String DB_USER = "";

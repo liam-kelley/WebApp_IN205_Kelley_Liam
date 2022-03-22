@@ -2,14 +2,46 @@ package com.ensta.librarymanager.dao;
 
 import java.util.List;
 
+import com.ensta.librarymanager.dao.daoInterfaces.ILivreDao;
 import com.ensta.librarymanager.exception.DaoException;
 import com.ensta.librarymanager.modele.Livre;
 
-public interface LivreDao {
-	public List<Livre> getList() throws DaoException;
-	public Livre getById(int id) throws DaoException;
-	public int create(String titre, String auteur, String isbn) throws DaoException;
-	public void update(Livre livre) throws DaoException;
-	public void delete(int id) throws DaoException;
-	public int count() throws DaoException;
+public class LivreDao implements ILivreDao{
+
+    @Override
+    public List<Livre> getList() throws DaoException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Livre getById(int id) throws DaoException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public int create(String titre, String auteur, String isbn) throws DaoException {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public void update(Livre livre) throws DaoException {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void delete(int id) throws DaoException {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public int count() throws DaoException {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+    
 }
