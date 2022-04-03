@@ -89,8 +89,20 @@ public class LivreDao implements ILivreDao{
 
     @Override
     public void update(Livre livre) throws DaoException {
-        // TODO Auto-generated method stub
-        
+        try(Connection conn = ConnectionManager.getConnection();
+        PreparedStatement pstmt = conn.prepareStatement("UPDATE livre SET titre = ?, auteur = ?, isbn = ? WHERE id = ?"))
+        {
+            pstmt.setString(1, livre.getTitre()); //Gestions des ?
+            pstmt.setString(2, livre.getAuteur());
+            pstmt.setString(3, livre.getIsbn());
+            pstmt.setInt(4, livre.getId());
+
+            pstmt.executeUpdate();
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+            throw new DaoException();
+        }
     }
 
     @Override

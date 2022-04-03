@@ -26,4 +26,23 @@ public class Livre /*implements LivreDao, LivreService*/{
         this.isbn = isbn;
 	}
 
+    /*
+	 * ** Méthodes
+	 */
+	public String getTitre() {
+		return this.titre;
+	}
+
+	public String getAuteur() {
+		return this.auteur;
+	}
+
+	public String getIsbn() {
+		return this.isbn;
+	}
+
+    public int getId() {
+		return this.id;
+	}
+
 }
