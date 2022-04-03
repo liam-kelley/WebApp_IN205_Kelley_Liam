@@ -32,7 +32,6 @@ public class LivreDao implements ILivreDao{
         PreparedStatement pstmt = conn.prepareStatement("SELECT id, titre, auteur, ISBN FROM livre"))
         {
             List<Livre> liste = new ArrayList<>();
-
             ResultSet res = pstmt.executeQuery();
 
             while(res.next()){
@@ -47,15 +46,45 @@ public class LivreDao implements ILivreDao{
     }
 
     @Override
-    public Livre getById(int id) throws DaoException {
-        // TODO Auto-generated method stub
-        return null;
+    public Optional<Livre> getById(int id) throws DaoException { //Modified ILivreDao
+        try(Connection conn = ConnectionManager.getConnection();
+        PreparedStatement pstmt = conn.prepareStatement("SELECT id, titre, auteur, isbn FROM livre WHERE id = ?"))
+        {
+            pstmt.setInt(1, id); // Gestion du ?
+
+            List<Livre> liste = new ArrayList<>();
+            ResultSet res = pstmt.executeQuery();
+
+            if (res.next()) { return Optional.ofNullable(new Livre(res.getInt("id"), res.getString("titre"), res.getString("auteur"), res.getString("isbn")));}
+            else { return Optional.empty();}
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+            throw new DaoException();
+        }
     }
 
     @Override
     public int create(String titre, String auteur, String isbn) throws DaoException {
-        // TODO Auto-generated method stub
-        return 0;
+        try(Connection conn = ConnectionManager.getConnection();
+        PreparedStatement pstmt = conn.prepareStatement("INSERT INTO livre(titre, auteur, isbn) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS))
+        {
+            pstmt.setString(1, titre); //Gestions des ?
+            pstmt.setString(2, auteur);
+            pstmt.setString(3, isbn);
+
+            pstmt.executeUpdate();
+
+            ResultSet res = pstmt.getGeneratedKeys();
+
+            int id = -1;
+            if (res.next()) { id = res.getInt(1); }
+            return id;
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+            throw new DaoException();
+        }
     }
 
     @Override
