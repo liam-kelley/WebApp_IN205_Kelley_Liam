@@ -39,4 +39,28 @@ public class Emprunt /*implements EmpruntDao, EmpruntService*/{
         String str = "Emprunt " + id + " du livre " + idLivre + " par le membre " + idMembre + " du " + dateEmprunt + " au " + dateRetour;
         return(str);
     }
+
+	public int getIdMembre() {
+		return this.idMembre;
+	}
+
+	public int getIdLivre() {
+		return this.idLivre;
+	}
+
+	public LocalDate getDateEmprunt() {
+		return this.dateEmprunt;
+	}
+
+	public LocalDate getDateRetour() {
+		return this.dateRetour;
+	}
+
+	public void setDateRetour(LocalDate dateRetour_arg) {
+		this.dateRetour = dateRetour_arg;
+	}
+
+    public int getId() {
+		return this.id;
+	}
 }
