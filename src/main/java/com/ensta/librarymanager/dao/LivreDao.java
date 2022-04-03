@@ -52,7 +52,6 @@ public class LivreDao implements ILivreDao{
         {
             pstmt.setInt(1, id); // Gestion du ?
 
-            List<Livre> liste = new ArrayList<>();
             ResultSet res = pstmt.executeQuery();
 
             if (res.next()) { return Optional.ofNullable(new Livre(res.getInt("id"), res.getString("titre"), res.getString("auteur"), res.getString("isbn")));}
