@@ -3,9 +3,7 @@ package com.ensta.librarymanager.modele;
 import java.util.List;
 
 import com.ensta.librarymanager.dao.daoInterfaces.IMembreDao;
-import com.ensta.librarymanager.service.IMembreService;
-//import com.ensta.librarymanager.dao.DaoException;
-//import com.ensta.librarymanager.service.ServiceException;
+import com.ensta.librarymanager.service.servicesInterfaces.IMembreService;
 
 public class Membre /*implements MembreDao, MembreService*/{
 

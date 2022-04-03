@@ -1,4 +1,4 @@
-package com.ensta.librarymanager.service;
+package com.ensta.librarymanager.service.servicesInterfaces;
 
 import java.util.List;
 

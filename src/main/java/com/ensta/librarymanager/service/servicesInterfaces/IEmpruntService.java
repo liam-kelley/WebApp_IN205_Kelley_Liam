@@ -1,4 +1,4 @@
-package com.ensta.librarymanager.service;
+package com.ensta.librarymanager.service.servicesInterfaces;
 
 import java.time.LocalDate;
 import java.util.List;
