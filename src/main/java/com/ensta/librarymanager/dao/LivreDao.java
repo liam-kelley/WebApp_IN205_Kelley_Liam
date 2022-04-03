@@ -118,7 +118,6 @@ public class LivreDao implements ILivreDao{
             e.printStackTrace();
             throw new DaoException();
         }
-        
     }
 
     @Override

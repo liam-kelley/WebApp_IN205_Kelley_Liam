@@ -33,4 +33,32 @@ public class Membre /*implements MembreDao, MembreService*/{
         this.abonnement = abonnement;
 	}
 
+	public String getNom() {
+		return this.nom;
+	}
+
+	public String getPrenom() {
+		return this.prenom;
+	}
+
+	public String getAdresse() {
+		return this.adresse;
+	}
+
+	public String getEmail() {
+		return this.email;
+	}
+
+	public String getTelephone() {
+		return this.telephone;
+	}
+
+	public Abonnement getAbonnement() {
+		return this.abonnement;
+	}
+
+    public int getId() {
+		return this.id;
+	}
+
 }

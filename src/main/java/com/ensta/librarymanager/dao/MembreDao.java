@@ -8,7 +8,6 @@ import com.ensta.librarymanager.modele.Membre;
 
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -95,20 +94,54 @@ public class MembreDao implements IMembreDao{
 
     @Override
     public void update(Membre membre) throws DaoException {
-        // TODO Auto-generated method stub
+        try(Connection conn = ConnectionManager.getConnection();
+        PreparedStatement pstmt = conn.prepareStatement("UPDATE membre SET nom = ?, prenom = ?, adresse = ?, email = ?, telephone = ?, abonnement = ? WHERE id = ?"))
+        {
+            pstmt.setString(1, membre.getNom());
+            pstmt.setString(2, membre.getPrenom());
+            pstmt.setString(3, membre.getAdresse());
+            pstmt.setString(4, membre.getEmail());
+            pstmt.setString(5, membre.getTelephone());
+            pstmt.setString(6, String.valueOf(membre.getAbonnement()));
+            pstmt.setInt(7, membre.getId());
+
+            pstmt.executeUpdate();
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+            throw new DaoException();
+        }
         
     }
 
     @Override
-    public void delete(int id) throws DaoException {
-        // TODO Auto-generated method stub
-        
+    public void delete(Membre membre) throws DaoException {
+        try(Connection conn = ConnectionManager.getConnection();
+        PreparedStatement pstmt = conn.prepareStatement("DELETE FROM membre WHERE id = ?")) 
+        {
+            pstmt.setInt(1, membre.getId());
+
+            pstmt.executeUpdate();
+
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+            throw new DaoException();
+        }
     }
 
     @Override
     public int count() throws DaoException {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-    
+        try (Connection conn = ConnectionManager.getConnection();
+        PreparedStatement pstmt = conn.prepareStatement("SELECT COUNT(id) AS count FROM membre"))
+        {
+            ResultSet res = pstmt.executeQuery();
+
+            if(res.next()){return res.getInt("count");}
+            else{return(0);}
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DaoException();
+        }
+    } 
 }

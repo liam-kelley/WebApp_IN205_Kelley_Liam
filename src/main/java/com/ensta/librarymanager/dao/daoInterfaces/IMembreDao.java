@@ -11,6 +11,6 @@ public interface IMembreDao {
 	public Optional<Membre> getById(int id) throws DaoException;
 	public int create(String nom, String prenom, String adresse, String email, String telephone) throws DaoException; //Pas de def d'abo? ok
 	public void update(Membre membre) throws DaoException;
-	public void delete(int id) throws DaoException;
+	public void delete(Membre membre) throws DaoException;
 	public int count() throws DaoException;
 }
