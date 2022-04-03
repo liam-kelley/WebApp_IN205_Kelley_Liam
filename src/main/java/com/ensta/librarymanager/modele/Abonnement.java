@@ -4,15 +4,10 @@ package com.ensta.librarymanager.modele;
 public enum Abonnement {
     BASIC(2), PREMIUM(5), VIP(20);
 
-    private int increment;
+    public final int nlivres;
 
-	private Abonnement(int increment) {
-		this.increment = increment;
+	private Abonnement(int nlivres) {
+		this.nlivres = nlivres;
 	}
-	
-	public int getIncrement() {
-		return increment;
-	}
-
 
 }
