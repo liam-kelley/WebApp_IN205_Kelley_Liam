@@ -35,7 +35,7 @@ public class LivreDao implements ILivreDao{
             ResultSet res = pstmt.executeQuery();
 
             while(res.next()){
-                liste.add(new Livre(rs.getInt("id"), rs.getString("titre"), rs.getString("auteur"), rs.getString("ISBN")));
+                liste.add(new Livre(res.getInt("id"), res.getString("titre"), res.getString("auteur"), res.getString("ISBN")));
             }
             return liste;
 
@@ -106,15 +106,35 @@ public class LivreDao implements ILivreDao{
     }
 
     @Override
-    public void delete(int id) throws DaoException {
-        // TODO Auto-generated method stub
+    public void delete(Livre livre) throws DaoException {
+        try(Connection conn = ConnectionManager.getConnection();
+        PreparedStatement pstmt = conn.prepareStatement("DELETE FROM livre WHERE id = ?")) 
+        {
+            pstmt.setInt(1, livre.getId());
+
+            pstmt.executeUpdate();
+
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+            throw new DaoException();
+        }
         
     }
 
     @Override
     public int count() throws DaoException {
-        // TODO Auto-generated method stub
-        return 0;
+        try (Connection conn = ConnectionManager.getConnection();
+        PreparedStatement pstmt = conn.prepareStatement("SELECT COUNT(id) AS count FROM livre"))
+        {
+            ResultSet res = pstmt.executeQuery();
+
+            if(res.next()){return res.getInt("count");}
+            else{return(0);}
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DaoException();
+        }
     }
     
 }
