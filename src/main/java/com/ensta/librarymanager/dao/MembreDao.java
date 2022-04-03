@@ -8,6 +8,15 @@ import com.ensta.librarymanager.modele.Membre;
 
 public class MembreDao implements IMembreDao{
 
+    private static MembreDao instance;
+    private MembreDao() {}
+    public static MembreDao getInstance() {
+        if (instance == null) {
+            instance = new MembreDao();
+        }
+        return instance;
+    }
+
     @Override
     public List<Membre> getList() throws DaoException {
         // TODO Auto-generated method stub
