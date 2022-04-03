@@ -1,5 +1,5 @@
 package com.ensta.librarymanager.exception;
 
-public class ServiceException extends Throwable {
+public class ServiceException extends Exception {
     
 }

@@ -15,18 +15,18 @@ public class Emprunt /*implements EmpruntDao, EmpruntService*/{
 	 * ** Attributs
 	 */
     private int id;
-    private Membre membre;
-    private Livre livre;
+    private int idMembre;//private Membre membre;
+    private int idLivre;//private Livre idL
     private LocalDate dateEmprunt;
     private LocalDate dateRetour;
 
      /*
 	 * ** Constructeur
 	 */
-	public Emprunt(int id, Membre membre, Livre livre, LocalDate dateEmprunt, LocalDate dateRetour) {
+	public Emprunt(int id, int idMembre, int idLivre,/*Membre membre, Livre livre,*/ LocalDate dateEmprunt, LocalDate dateRetour) {
 		this.id = id;
-        this.membre = membre;
-        this.livre = livre;
+        this.idMembre = idMembre;
+        this.idLivre = idLivre;
         this.dateEmprunt = dateEmprunt;
         this.dateRetour = dateRetour;
 	}
@@ -36,7 +36,7 @@ public class Emprunt /*implements EmpruntDao, EmpruntService*/{
 	 */
     @Override
     public String toString(){
-        String str = "Emprunt " + id + " du livre " + livre + " par le membre " + membre + " du " + dateEmprunt + " au " + dateRetour;
+        String str = "Emprunt " + id + " du livre " + idLivre + " par le membre " + idMembre + " du " + dateEmprunt + " au " + dateRetour;
         return(str);
     }
 }

@@ -16,6 +16,7 @@ import com.ensta.librarymanager.persistence.ConnectionManager;
 
 public class LivreDao implements ILivreDao{
 
+    //Design pattern Singleton
     private static LivreDao instance;
     private LivreDao() {}
     public static LivreDao getInstance() {
@@ -27,18 +28,18 @@ public class LivreDao implements ILivreDao{
 
     @Override
     public List<Livre> getList() throws DaoException {
-        try(Connection conn = ConnectionManager.getConnection()){
+        try(Connection conn = ConnectionManager.getConnection();
+        PreparedStatement pstmt = conn.prepareStatement("SELECT id, titre, auteur, ISBN FROM livre"))
+        {
+            List<Livre> liste = new ArrayList<>();
 
-            List<Livre> listLivres = new ArrayList<>();
+            ResultSet res = pstmt.executeQuery();
 
-            PreparedStatement pstmt = conn.prepareStatement("SELECT id, titre, auteur, ISBN FROM livre");
-            ResultSet rs = pstmt.executeQuery();
-
-            while(rs.next()){
-                listLivres.add(new Livre(rs.getInt("id"), rs.getString("titre"), rs.getString("auteur"), rs.getString("ISBN")));
+            while(res.next()){
+                liste.add(new Livre(rs.getInt("id"), rs.getString("titre"), rs.getString("auteur"), rs.getString("ISBN")));
             }
-            return listLivres;
-            
+            return liste;
+
         } catch(SQLException e){
             e.printStackTrace();
             throw new DaoException();

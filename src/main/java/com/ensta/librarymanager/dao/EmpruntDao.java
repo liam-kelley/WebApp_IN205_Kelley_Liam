@@ -7,12 +7,49 @@ import com.ensta.librarymanager.dao.daoInterfaces.IEmpruntDao;
 import com.ensta.librarymanager.exception.DaoException;
 import com.ensta.librarymanager.modele.Emprunt;
 
+import java.util.ArrayList;
+import java.util.Optional;
+import com.ensta.librarymanager.persistence.ConnectionManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Connection;
+import java.sql.Date;
+
 public class EmpruntDao implements IEmpruntDao {
+
+    //Design pattern Singleton
+    private static EmpruntDao instance;
+    private EmpruntDao() {}
+    public static EmpruntDao getInstance() {
+        if (instance == null) {
+            instance = new EmpruntDao();
+        }
+        return instance;
+    }
 
     @Override
     public List<Emprunt> getList() throws DaoException {
-        // TODO Auto-generated method stub
-        return null;
+        try (Connection conn = ConnectionManager.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("SELECT e.id AS id, idMembre, nom, prenom, adresse, email, telephone, abonnement, idLivre, titre, auteur, isbn, dateEmprunt, dateRetour FROM emprunt AS e INNER JOIN membre ON membre.id = e.idMembre INNER JOIN livre ON livre.id = e.idLivre ORDER BY dateRetour DESC"))
+        {
+            List<Emprunt> liste = new ArrayList<>();
+            
+            ResultSet res = stmt.executeQuery();
+
+            while (res.next()) {
+                LocalDate dateRetour;
+                if (res.getDate("dateRetour") != null) { dateRetour = res.getDate("dateRetour").toLocalDate();}
+                else {dateRetour = null;}
+                
+                liste.add(new Emprunt(res.getInt("id"), res.getInt("idMembre"), res.getInt("idLivre"), res.getDate("dateEmprunt").toLocalDate(), dateRetour));
+            }
+            return liste;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DaoException();
+        }
     }
 
     @Override
