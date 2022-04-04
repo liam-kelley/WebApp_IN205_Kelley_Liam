@@ -25,11 +25,25 @@ public class EmpruntReturnServlet extends HttpServlet {
     MembreService membreService = MembreService.getInstance();
     EmpruntService empruntService = EmpruntService.getInstance();
 
+    // La méthode doGet() permet d’afficher un formulaire de retour
+    // d’emprunt, basé sur un champ de type <select> contenant les
+    // emprunt en cours.
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        try {
+        }
+        catch (ServiceException e) {
+                e.printStackTrace();
+        }
+        this.getServletContext().getRequestDispatcher("/WEB-INF/View/emprunt_return.jsp").forward(request, response);
+        
     }
 
+    // La méthode doPost() a pour unique rôle de traiter le formulaire de
+    // retour d’un emprunt à partir des données récupérées via le
+    // formulaire précédent. En cas de problème dans le processus, vous
+    // devrez envoyer une ServletException.
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

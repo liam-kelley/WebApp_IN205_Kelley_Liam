@@ -1,7 +1,6 @@
 package com.ensta.librarymanager.servlet;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,5 +58,6 @@ public class EmpruntListServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        this.doGet(request, response);
     }
 }
