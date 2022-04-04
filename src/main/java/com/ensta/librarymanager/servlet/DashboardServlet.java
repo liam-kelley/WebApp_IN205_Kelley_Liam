@@ -29,20 +29,20 @@ public class DashboardServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            List<Emprunt> listEmpruntEnCours = this.empruntService.getListCurrent();
-            List<Livre> listLivres = new ArrayList<>();
-            List<Membre> listMembres = new ArrayList<>();
-            for (Emprunt emprunt : listEmpruntEnCours) {
-                listLivres.add(livreService.getById(emprunt.getIdLivre()));
-                listMembres.add(membreService.getById(emprunt.getIdMembre()));
+            List<Emprunt> listEmprunt = this.empruntService.getListCurrent();
+            List<Livre> listLivre = new ArrayList<>();
+            List<Membre> listMembre = new ArrayList<>();
+            for (Emprunt emprunt : listEmprunt) {
+                listLivre.add(livreService.getById(emprunt.getIdLivre()));
+                listMembre.add(membreService.getById(emprunt.getIdMembre()));
             }
             //Set variables to send to jsps
             request.setAttribute("livreCount", this.livreService.count());
             request.setAttribute("membreCount", this.membreService.count());
             request.setAttribute("empruntCount", this.empruntService.count());
-            request.setAttribute("listEmpruntEnCours", listEmpruntEnCours);
-            request.setAttribute("listMembres", listMembres);
-            request.setAttribute("listLivres", listLivres);
+            request.setAttribute("listEmprunt", listEmprunt);
+            request.setAttribute("listMembre", listMembre);
+            request.setAttribute("listLivre", listLivre);
 
             this.getServletContext().getRequestDispatcher("/WEB-INF/View/dashboard.jsp").forward(request, response);
         }

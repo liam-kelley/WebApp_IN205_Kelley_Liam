@@ -33,8 +33,8 @@ public class EmpruntAddServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            request.setAttribute("listLivreDispo", livreService.getListDispo());
-            request.setAttribute("listMembreEP", membreService.getListMembreEmpruntPossible());
+            request.setAttribute("listLivre", livreService.getListDispo());
+            request.setAttribute("listMembre", membreService.getListMembreEmpruntPossible());
             
             this.getServletContext().getRequestDispatcher("/WEB-INF/View/emprunt_add.jsp").forward(request, response);
         }
