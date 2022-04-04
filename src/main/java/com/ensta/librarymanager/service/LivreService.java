@@ -35,10 +35,19 @@ public class LivreService implements ILivreService{
         }
     }
 
+    //renvoyer la liste des livres actuellement disponibles à l’emprunt.
     @Override
     public List<Livre> getListDispo() throws ServiceException {
-        // TODO Auto-generated method stub
-        return null;
+        try {
+            List<Livre> listDispo = new ArrayList<>();
+            for (Livre livre : livreDao.getList()) {
+                if (empruntService.isLivreDispo(livre.getId())) { listDispo.add(livre); }
+            }
+            return listDispo;
+        } catch (DaoException e) {
+            e.printStackTrace();
+            throw new ServiceException();
+        }
     }
 
     @Override
@@ -52,7 +61,7 @@ public class LivreService implements ILivreService{
                 return null;
             }
         } catch (DaoException e) {
-            e.printStackTrace(); // Permet de remonter les erreurs de la suite d'exceptions
+            e.printStackTrace();
             throw new ServiceException();
         }
     }
@@ -66,7 +75,7 @@ public class LivreService implements ILivreService{
                 return livreDao.create(titre, auteur, isbn);
             }
         } catch (DaoException e) {
-            e.printStackTrace(); // Permet de remonter les erreurs de la suite d'exceptions
+            e.printStackTrace();
             throw new ServiceException();
         }
     }
@@ -80,7 +89,7 @@ public class LivreService implements ILivreService{
                 livreDao.update(livre);
             }
         } catch (DaoException e) {
-            e.printStackTrace(); // Permet de remonter les erreurs de la suite d'exceptions
+            e.printStackTrace();
             throw new ServiceException();
         }
 
@@ -92,7 +101,7 @@ public class LivreService implements ILivreService{
             Livre livre = livreDao.getById(id).get();
             livreDao.delete(livre);
         } catch (DaoException e) {
-            e.printStackTrace(); // Permet de remonter les erreurs de la suite d'exceptions
+            e.printStackTrace();
             throw new ServiceException();
         }
     }
@@ -102,7 +111,7 @@ public class LivreService implements ILivreService{
         try {
             return livreDao.count();
         } catch (DaoException e) {
-            e.printStackTrace(); // Permet de remonter les erreurs de la suite d'exceptions
+            e.printStackTrace();
             throw new ServiceException();
         }
     }
