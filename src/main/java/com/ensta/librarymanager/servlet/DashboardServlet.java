@@ -36,7 +36,7 @@ public class DashboardServlet extends HttpServlet {
                 listLivres.add(livreService.getById(emprunt.getIdLivre()));
                 listMembres.add(membreService.getById(emprunt.getIdMembre()));
             }
-            
+            //Set variables to send to jsps
             request.setAttribute("livreCount", this.livreService.count());
             request.setAttribute("membreCount", this.membreService.count());
             request.setAttribute("empruntCount", this.empruntService.count());

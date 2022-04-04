@@ -1,6 +1,7 @@
 package com.ensta.librarymanager.servlet;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,16 +35,45 @@ public class EmpruntAddServlet extends HttpServlet {
         try {
             request.setAttribute("listLivreDispo", livreService.getListDispo());
             request.setAttribute("listMembreEP", membreService.getListMembreEmpruntPossible());
-        } catch (ServiceException e) {
+            
+            this.getServletContext().getRequestDispatcher("/WEB-INF/View/emprunt_add.jsp").forward(request, response);
+        }
+        catch (ServiceException e) {
             e.printStackTrace();
+            throw new ServletException();
         }
     }
 
     // La méthode doPost() a pour unique rôle de traiter le formulaire de
     // création d’un nouvel emprunt à partir des données récupérées via
-    // le formulaire précédent.
+    // le formulaire précédent. objectif mise à jour de la base de données.
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        try {
+            //Création emprunt à partir des données récupérées
+            int idLivre = Integer.parseInt(request.getParameter("idLivre"));
+            int idMembre = Integer.parseInt(request.getParameter("idMembre"));
+            LocalDate dateEmprunt = LocalDate.now();
+            empruntService.create(idMembre, idLivre, dateEmprunt);
+            
+            //Mise à jour de la BDD
+            List<Emprunt> listEmprunt;
+            listEmprunt = this.empruntService.getListCurrent();
+            List<Livre> listLivre = new ArrayList<>();
+            List<Membre> listMembre = new ArrayList<>();
+            for (Emprunt emprunt : listEmprunt) {
+                listLivre.add(livreService.getById(emprunt.getIdLivre()));
+                listMembre.add(membreService.getById(emprunt.getIdMembre()));
+            }
+            request.setAttribute("listEmprunt", listEmprunt);
+            request.setAttribute("listMembre", listMembre);
+            request.setAttribute("listLivre", listLivre);
+
+            this.getServletContext().getRequestDispatcher("/WEB-INF/View/emprunt_list.jsp").forward(request, response);          
+        } catch (ServiceException e) {
+            e.printStackTrace();
+            throw new ServletException();
+        }
     }
 }
